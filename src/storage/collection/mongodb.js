@@ -1,18 +1,10 @@
 'use strict';
 var Promise = require('bluebird');
 var _ = require('lodash');
-var config = require('./../../../config/index').get();
+//var config = require('./../../../config/index').get();
 var Collection = require('./../../../src/models/collection');
 var logger = require('./../../../config/logger');
-
-// if we have more mongodb usage then we can move it into server.js
-var mongoose = require('mongoose')
-mongoose.Promise = require('bluebird');
-mongoose.connect(
-  config.mongodb.uri,
-  config.mongodb.options
-);
-//logger.info('connected to mongodb at: ', config.mongodb.uri);
+var mongoose = require('./../../../config/mongoose').getMongoose()
 
 /**
  * partial update collection

@@ -26,14 +26,21 @@ setup.makeSuite('collections storage', function() {
 
   describe('mongodb storage', function() {
     var storage = require('./../../src/storage/collection/mongodb')
+    var config = require('./../../config/index').get();
 
     var is_skipped = false;
-    var mongoose = require('mongoose');
+    var mongoose = require('./../../config/mongoose');
 
-    mongoose.connection.on('error', function (err) {
+    mongoose.customConnect(config.mongodb.uri,config.mongodb.options)
+    .catch(function(err) {
+      console.log('Could not connect to mongo server in tests!');
+      is_skipped = true;
+    })
+
+    /*mongoose.connection.on('error', function (err) {
       console.log('Could not connect to mongo server!');
       is_skipped = true;
-    });
+    });*/
 
     before(function(done) {
       if (is_skipped) {

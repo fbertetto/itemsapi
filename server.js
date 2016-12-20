@@ -5,6 +5,7 @@ var logger
 var server
 var app
 var router
+var mongoose
 
 /**
  * it inits application
@@ -17,6 +18,34 @@ exports.init = function (data) {
   config.merge(data);
   logger = require('./config/logger');
   require('./src/connections/elastic').init(config.get().elasticsearch);
+
+  // run mongodb only when collection storage is set up to mongodb
+  // don't run in test environment
+  if (
+    process.env.NODE_ENV !== 'test' &&
+    config.get().collections &&
+    config.get().collections.db === 'mongodb'
+  ) {
+    console.log('get get');
+    //console.log(config.get().mongoose);
+
+    if (data.mongoose) {
+      /*var m = require('./config/mongoose').customConnect(
+        config.get().mongodb.uri,
+        config.get().mongodb.options
+      )*/
+      //console.log(m);
+      //console.log(data.mongoose);
+      require('./config/mongoose').setMongoose(data.mongoose)
+      //console.log(require('./config/mongoose').getMongoose())
+    } else if (config.get().mongodb) {
+      require('./config/mongoose').customConnect(
+        config.get().mongodb.uri,
+        config.get().mongodb.options
+      )
+    }
+  }
+
   app = require('./express').app;
   router = require('./express').router;
 };
