@@ -194,4 +194,11 @@ module.exports = function(router) {
    * get specific item
    */
   router.get(['/items/:name/:id'], items.get);
+
+  /*
+   * get ping for validate api status
+   */
+  router.get('/ping', function (req, res) {
+    res.send('pong')
+  })
 }
