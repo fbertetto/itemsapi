@@ -1,1 +1,64 @@
-[]
+[
+	{
+		"name": "projects",
+        "project": "social",
+        "schema": {
+            "name": {
+                "type": "string",
+                "store": true
+            },
+            "description": {
+                "type": "string",
+                "store": true,
+                "index": "not_analyzed"
+            },
+            "key": {
+                "type": "string",
+                "index": "not_analyzed",
+                "store": true
+            },
+            "images": {
+                "type": "string",
+                "display": "array",
+                "index": "not_analyzed",
+                "store": true
+            },
+            "tags": {
+                "type": "string",
+                "display": "array",
+                "index": "not_analyzed",
+                "store": true
+            },
+            "date": {
+                "type": "integer",
+                "store": true
+            },
+            "owner": {
+                "type": "string",
+                "store": true
+            },
+            "city": {
+                "type": "string",
+                "store": true
+            },
+            "country": {
+                "type": "string",
+                "store": true
+            }
+        },
+        "aggregations": {
+            "country": {
+                "type": "terms",
+                "field": "country",
+                "size": 10,
+                "title": "Countries"
+            },
+            "city": {
+                "type": "terms",
+                "field": "city",
+                "size": 10,
+                "title": "Cities"
+            }
+        },
+	}
+]

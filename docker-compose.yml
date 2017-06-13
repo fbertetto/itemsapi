@@ -6,7 +6,6 @@ services:
      - "3000:3000"
     environment:
      - ELASTICSEARCH_URL=elasticsearch:9200
-     - REDIS_URL=redis:6379
      - PORT=3000
     # TODO - cover all relevant js files
     volumes:
@@ -15,11 +14,7 @@ services:
     networks:
      - front
   elasticsearch:
-    image: "elasticsearch:1.7.6"
-    networks:
-     - front
-  redis:
-    image: "redis:3.2"
+    image: "elasticsearch:2.4.5"
     networks:
      - front
 networks:
